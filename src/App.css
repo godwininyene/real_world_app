@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark Theme Color Palette */
+  --color-primary: #8b5cf6;  /* More vibrant purple */
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #7c3aed;
+  --color-primary-darker: #6d28d9;
+  
+  /* Dark Background Colors */
+  --color-bg-dark: #0f172a;  /* Very dark blue */
+  --color-bg-darker: #020617; /* Almost black */
+  --color-bg-light: #1e293b;  /* Slightly lighter dark */
+  
+  /* Text Colors */
+  --color-text: #e2e8f0;      /* Light gray */
+  --color-text-light: #94a3b8; /* Medium gray */
+  --color-text-lighter: #cbd5e1; /* Brighter gray */
+  
+  /* Accent Colors */
+  --color-accent: #8b5cf6;
+  --color-accent-dark: #6d28d9;
+  
+  /* Blob Colors (more vibrant in dark mode) */
+  --color-blob-1: rgba(139, 92, 246, 0.15);  /* Primary with opacity */
+  --color-blob-2: rgba(167, 139, 250, 0.15); /* Primary-light with opacity */
+  
+  /* Card Colors */
+  --color-card: #1e293b;
+  --color-card-border: #334155;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.8;
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+    opacity: 0.6;
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.8;
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.dark {
+  background-color: var(--color-bg-darker);
+  color: var(--color-text);
+}
