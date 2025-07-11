@@ -112,7 +112,7 @@ export default function Dashboard() {
                             <FaHistory className="inline-block w-5 h-5" /> Recent Transactions
                         </h2>
                         <Link 
-                            to="/manage/investor/transactions" 
+                            to="/investor/transactions" 
                             className="text-sm text-primary-light hover:underline"
                         >
                             View All
@@ -139,7 +139,7 @@ export default function Dashboard() {
                             <HiPresentationChartBar className="inline-block w-5 h-5" /> Recent Investments
                         </h2>
                         <Link 
-                            to="/manage/investor/investments" 
+                            to="/investor/investments" 
                             className="text-sm text-primary-light hover:underline"
                         >
                             View All
@@ -156,7 +156,7 @@ export default function Dashboard() {
                         <div className="text-center py-6">
                             <p className="text-gray-500 dark:text-gray-400 mb-4">No active investments</p>
                             <Link
-                                to="/manage/investor/investments"
+                                to="/investor/investments"
                                 className="inline-flex items-center gap-2 px-6 py-2 bg-primary-light text-white rounded-lg hover:bg-primary-dark transition-colors"
                             >
                                 <FaChartLine className="w-5 h-5" /> Start Investing

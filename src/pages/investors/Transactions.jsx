@@ -73,21 +73,21 @@ export default function Transactions() {
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Link
                     to='/investor/deposit'
-                    className="flex items-center justify-center gap-3 px-6 py-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white font-medium rounded-xl shadow hover:shadow-lg transition-all"
+                    className="flex items-center justify-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-emerald-500/30 text-emerald-400 font-medium rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all"
                 >
                     <BiPlus className="text-xl" />
                     <span>Deposit Funds</span>
                 </Link>
                 <Link
                     to='/investor/withdrawal'
-                    className="flex items-center justify-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium rounded-xl shadow hover:shadow-lg transition-all"
+                    className="flex items-center justify-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-blue-500/30 text-blue-400 font-medium rounded-xl shadow-lg hover:shadow-blue-500/20 transition-all"
                 >
                     <BiMinus className="text-xl" />
                     <span>Withdraw Funds</span>
                 </Link>
                 <button 
                     onClick={() => setAccountModal(true)}
-                    className="cursor-pointer flex items-center justify-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-medium rounded-xl shadow hover:shadow-lg transition-all"
+                    className="flex cursor-pointer items-center justify-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-purple-500/30 text-purple-400 font-medium rounded-xl shadow-lg hover:shadow-purple-500/20 transition-all"
                 >
                     <BiCreditCard className="text-xl" />
                     <span>Withdrawal Wallets</span>

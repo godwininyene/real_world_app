@@ -68,13 +68,13 @@ const ProfileSection = ({ user }) => {
                     
                     <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
                         <Link
-                            to="/manage/investor/investments"
+                            to="/investor/investments"
                             className="flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium"
                         >
                             <FaChartLine /> Investments
                         </Link>
                         <Link
-                            to="/manage/investor/transactions"
+                            to="/investor/transactions"
                             className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 border border-white/20 rounded-lg hover:bg-primary transition-colors font-medium"
                         >
                             <FaMoneyBillTransfer /> Transactions

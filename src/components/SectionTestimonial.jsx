@@ -2,6 +2,7 @@ import testify_1 from './../assets/images/testify_1.webp';
 import testify_2 from './../assets/images/testify-2.jpg';
 import testify_3 from './../assets/images/testify-3.avif';
 import testify_4 from './../assets/images/testify-4.jpg';
+import { Link } from 'react-router-dom';
 
 const SectionTestimonial = () => {
   const testimonials = [
@@ -81,9 +82,9 @@ const SectionTestimonial = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <button className="px-10 py-4 bg-gradient-to-r from-primary to-primary-light text-white font-bold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+          <Link to='/register' className="px-10 py-4 bg-gradient-to-r from-primary to-primary-light text-white font-bold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             JOIN THESE MEN TODAY
-          </button>
+          </Link>
         </div>
       </div>
     </section>

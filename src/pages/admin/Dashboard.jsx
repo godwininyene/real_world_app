@@ -52,7 +52,7 @@ export default function Dashboard() {
           title="Total Users"
           value={data.stats?.users || 0}
           linkText="Manage Users"
-          linkTo="/manage/admin/users"
+          linkTo="/admin/users"
           color="blue"
         />
         
@@ -61,7 +61,7 @@ export default function Dashboard() {
           title="Total Balance"
           value={`$${(data.stats?.total_balance || 0).toLocaleString()}`}
           linkText="View Transactions"
-          linkTo="/manage/admin/transactions"
+          linkTo="/admin/transactions"
           color="green"
         />
         
@@ -70,7 +70,7 @@ export default function Dashboard() {
           title="Total Profits"
           value={`$${(data.stats?.total_profit || 0).toLocaleString()}`}
           linkText="View Investments"
-          linkTo="/manage/admin/investments"
+          linkTo="/admin/investments"
           color="purple"
         />
         
@@ -78,8 +78,8 @@ export default function Dashboard() {
           icon={<FiShare2 size={20} />}
           title="Referral Balance"
           value={`$${(data.stats?.total_referral_balance || 0).toLocaleString()}`}
-          linkText="View Referrals"
-          linkTo="/manage/admin/referrals"
+          // linkText="View Referrals"
+          // linkTo="/"
           color="amber"
         />
       </div>
@@ -90,7 +90,7 @@ export default function Dashboard() {
         <div className="lg:col-span-2">
           <RecentActivityTable
             title="Pending Transactions"
-            linkTo="/manage/admin/transactions"
+            linkTo="/admin/transactions"
             linkText="View All"
             loading={loading}
             data={data.transactions?.filter(t => t.status === 'pending').slice(0, 5)}
@@ -144,7 +144,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <RecentActivityTable
           title="Recent Transactions"
-          linkTo="/manage/admin/transactions"
+          linkTo="/admin/transactions"
           linkText="View All"
           loading={loading}
           data={data.transactions?.slice(0, 5)}
@@ -171,7 +171,7 @@ export default function Dashboard() {
 
         <RecentActivityTable
           title="Recent Investments"
-          linkTo="/manage/admin/investments"
+          linkTo="/admin/investments"
           linkText="View All"
           loading={loading}
           data={data.investments?.slice(0, 5)}

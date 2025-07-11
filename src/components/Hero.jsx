@@ -1,23 +1,26 @@
+import { Link } from "react-router-dom";
 const Hero = ()=>{
     return(
         <div className="dark bg-bg-darker min-h-screen">
           <div className="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 mb-10 md:mb-0">
-              <div className="bg-opacity-20 bg-primary text-primary-light uppercase text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">
+              <div className="bg-opacity-20 bg-primary  uppercase text-sm font-semibold px-3 py-1 rounded-full inline-block mb-3">
                   FreeTopG Discount! Enter Today for Only $49
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-text leading-tight mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-text leading-tight mb-3">
                   WELCOME TO <br />
                   <span className="text-primary hover:text-primary-light transition-colors">THE REAL WORLD</span>
               </h1>
-              <p className="text-lg text-text-light mb-8 leading-relaxed">
-                  The New Yorker is a classic, transparent publication for unique individuals who want to engage with society. 
-                  Our readers gain deep understanding through carefully curated stories that explore philosophy, culture, 
-                  and international development.
+              <p className="text-lg text-text-light mb-4 leading-relaxed">
+                A worldwide collective of success-driven individuals,
+                The Real World helps people accumulate significant wealth.
+                Members benefit from elite coaching and mentorship by multimillionaire professionals
+                in their fields. Its innovative, finance-focused learning approach has already revolutionized
+                thousands of lives.
               </p>
-              <button className="px-8 py-3 bg-primary text-white rounded-lg text-lg font-semibold hover:bg-primary-light transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              <Link to='/register' className="px-8 py-3 bg-primary text-white rounded-lg text-lg font-semibold hover:bg-primary-light transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                   JOIN THE REAL WORLD →
-              </button>
+              </Link>
               </div>
               <div className="md:w-1/2 flex justify-center">
               <div className="relative w-full max-w-md">

@@ -6,6 +6,7 @@ import stock from './../assets/images/stock.png';
 import freelancing from './../assets/images/freelancing.png';
 import amazon from './../assets/images/amazon.png';
 import ai from './../assets/images/ai.png';
+import { Link } from 'react-router-dom';
 
 const SectionWhatWeTeach = () => {
   const skills = [
@@ -116,9 +117,9 @@ const SectionWhatWeTeach = () => {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <button className="px-8 py-3 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+          <Link to='/register' className="px-8 py-3 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             CHOOSING A SKILL
-          </button>
+          </Link>
         </div>
       </div>
     </section>

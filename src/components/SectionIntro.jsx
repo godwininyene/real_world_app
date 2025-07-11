@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const SectionIntro = () => {
   return (
     <section className="py-20 bg-gradient-to-b from-bg-dark to-bg-darker">
@@ -7,7 +8,7 @@ const SectionIntro = () => {
           200k+ STUDENTS HAVE ALREADY TAKEN THE ADVANTAGE
         </div>
         
-        <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
+        <h2 className="text-3xl md:text-5xl font-bold mb-8 leading-tight">
           <span className="block text-text-lighter">THIS WILL</span>
           <span className="block text-primary hover:text-primary-light transition-colors">
             CHANGE YOUR ENTIRE LIFE
@@ -25,7 +26,7 @@ const SectionIntro = () => {
               <span>288,717</span>
               <span>270,000 MEMBERS REACHED</span>
             </div>
-            <div className="overflow-hidden h-3 mb-6 text-xs flex rounded-full bg-bg-light">
+            <div className="overflow-hidden h-3 mb-6 text-xs flex rounded-full bg-bg-dark">
               <div 
                 style={{ width: '70%' }}
                 className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-primary to-primary-light"
@@ -41,12 +42,12 @@ const SectionIntro = () => {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-[1.02]">
+            <Link to='/login' className="px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-[1.02]">
               LOG IN
-            </button>
-            <button className="px-8 py-3 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
+            </Link>
+            <Link to='/register' className="px-8 py-3 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
               JOIN NOW
-            </button>
+            </Link>
           </div>
         </div>
       </div>

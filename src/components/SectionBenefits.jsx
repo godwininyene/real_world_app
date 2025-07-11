@@ -1,7 +1,7 @@
 import benefit_img_1 from './../assets/images/benefit_img_1.png';
 import benefit_img_2 from './../assets/images/benefit_img_2.png';
 import benefit_img_3 from './../assets/images/benefit_img_3.png';
-import videoPoster from './../assets/images/benefit_video_poster.jpg'
+import { Link } from 'react-router-dom';
 
 const SectionBenefits = () => {
   return (
@@ -87,9 +87,9 @@ const SectionBenefits = () => {
 
         {/* CTA Button */}
         <div className="text-center">
-          <button className="px-10 py-4 bg-gradient-to-r from-primary to-primary-light text-white text-lg font-bold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+          <Link to='/register' className="px-10 py-4 bg-gradient-to-r from-primary to-primary-light text-white text-lg font-bold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             SAVE MY SPOT FOR TRW
-          </button>
+          </Link>
         </div>
       </div>
     </section>

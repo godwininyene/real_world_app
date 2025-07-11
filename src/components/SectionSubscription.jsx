@@ -1,4 +1,5 @@
 import { FaCheck } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const SectionSubscription = () => {
   const features = [
@@ -67,9 +68,9 @@ const SectionSubscription = () => {
               </p>
             </div>
             
-            <button className="w-full py-4 bg-white text-primary font-bold rounded-lg hover:bg-gray-100 hover:text-primary-dark transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            <Link to='/register' className="inline-block text-center w-full py-4 bg-white text-primary font-bold rounded-lg hover:bg-gray-100 hover:text-primary-dark transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
               START YOUR JOURNEY TODAY
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -78,9 +79,9 @@ const SectionSubscription = () => {
           <p className="text-lg italic mb-8 text-text-light">
             "The Real World transformed my approach to wealth building. Within 6 months I went from broke to $10k/month."
           </p>
-          <button className="px-10 py-4 bg-gradient-to-r from-primary to-primary-light text-white font-bold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+          <Link to='/register' className="px-10 py-4 bg-gradient-to-r from-primary to-primary-light text-white font-bold rounded-lg hover:from-primary-dark hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             JOIN THE REAL WORLD
-          </button>
+          </Link>
         </div>
       </div>
     </section>

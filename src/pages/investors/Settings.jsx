@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { FiUser, FiLock, FiBell, FiMail, FiCamera } from 'react-icons/fi';
 import { RiShieldKeyholeLine, RiLogoutCircleLine } from 'react-icons/ri';
 import axios from '../../lib/axios';
-import LoadingIndicator from '../../components/common/LoadingIndicator';
 import InputField from '../../components/common/InputField';
 import defaultAvatar from '../../assets/images/default.jpg';
 import { toast } from 'react-toastify';
 import Button from '../../components/common/Button';
+import { useNavigate } from 'react-router-dom';
+import { logout } from './../../utils/logout';
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -15,6 +16,8 @@ export default function Settings() {
   const [loading, setLoading] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState(initialUser?.photo || defaultAvatar);
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
+  const [processing, setProcessing] = useState(false);
   
   // Profile form
   const { 
@@ -30,6 +33,17 @@ export default function Settings() {
       phone: initialUser?.phone || '',
     }
   });
+
+    const handleLogout = async () => {
+    setProcessing(true);
+    try {
+      await logout(navigate);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setProcessing(false);
+    }
+  };
 
   const [passwordErrors, setPasswordErrors] = useState({
     password: '',
@@ -61,10 +75,6 @@ export default function Settings() {
     
     try {
       const formData = new FormData(e.target);
-    //   formData.append('firstName', data.firstName);
-    //   formData.append('lastName', data.lastName);
-    //   formData.append('email', data.email);
-    //   formData.append('phone', data.phone);
       if (selectedFile) {
         formData.append('photo', selectedFile);
       }
@@ -118,10 +128,10 @@ export default function Settings() {
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row gap-6">
         {/* Settings Sidebar */}
-        <div className="w-full md:w-64">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 sticky top-6">
+        <div className="w-full md:w-80">
+          <div className="bg-gray-800 rounded-xl shadow-sm p-4 sticky top-6">
             <div className="flex flex-col items-center mb-6">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-indigo-100 dark:border-gray-700 mb-3">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-indigo-100  mb-3">
                 <img 
                   src={avatarPreview} 
                   alt="Profile" 
@@ -138,10 +148,10 @@ export default function Settings() {
                   />
                 </label>
               </div>
-              <h2 className="font-bold text-lg text-gray-800 dark:text-white">
+              <h2 className="font-bold text-lg text-text-light">
                 {initialUser?.firstName} {initialUser?.lastName}
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{initialUser?.email}</p>
+              <p className="text-sm text-gray-400">{initialUser?.email}</p>
             </div>
 
             <nav className="space-y-1">
@@ -149,10 +159,10 @@ export default function Settings() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 w-full px-4 py-3 rounded-lg transition-colors ${
+                  className={`flex cursor-pointer items-center gap-3 w-full px-4 py-3 rounded-lg duration-150 transition-colors ${
                     activeTab === tab.id
-                      ? 'bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      ? 'bg-bg-dark text-indigo-400'
+                      : 'text-gray-300 hover:bg-gray-700'
                   }`}
                 >
                   {tab.icon}
@@ -161,101 +171,117 @@ export default function Settings() {
               ))}
             </nav>
 
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <button className="flex items-center gap-3 w-full px-4 py-3 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
-                <RiLogoutCircleLine className="text-lg" />
-                <span className="font-medium">Logout</span>
+            <div className="mt-6 pt-6 border-t border-gray-500">
+              <button 
+                onClick={handleLogout}
+                disabled={processing}
+                className="cursor-pointer flex items-center justify-center gap-3 w-full px-4 py-3 text-red-500 hover:bg-red-900/20 rounded-lg transition-colors"
+              >
+                {processing ? (
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  <RiLogoutCircleLine className="text-lg" />
+                )}
+                <span className="font-medium">
+                  {processing ? 'Logging out...' : 'Logout'}
+                </span>
               </button>
             </div>
           </div>
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+        <div className="bg-gray-800 rounded-xl shadow-sm p-6 grow">
           {/* Profile Tab */}
           {activeTab === 'profile' && (
             <div>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-white">Profile Information</h2>
-               
-              </div>
+              <h2 className="text-xl font-bold text-gray-400 mb-6">Profile Information</h2>
               
-              <form onSubmit={onSubmitProfile}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <InputField
-                    name="firstName"
-                    label="First Name"
-                    register={registerProfile}
-                    error={profileErrors.firstName}
-                    defaultValue={initialUser.firstName}
-                    placeholder="Enter your first name"
-                    uncontrolled={true}
-                  />
+              <div className="space-y-6">
+                <div className="bg-bg-dark p-6 rounded-xl border border-gray-500">
+                  <h3 className="text-lg font-semibold text-text-light mb-4">Change Data</h3>
+              
+                  <form onSubmit={onSubmitProfile}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                      <InputField
+                        name="firstName"
+                        label="First Name"
+                        register={registerProfile}
+                        error={profileErrors.firstName}
+                        defaultValue={initialUser.firstName}
+                        placeholder="Enter your first name"
+                        uncontrolled={true}
+                      />
 
-                  <InputField
-                    name="lastName"
-                    label="Last Name"
-                    register={registerProfile}
-                    error={profileErrors.lastName}
-                    defaultValue={initialUser.lastName}
-                    placeholder="Enter your last name"
-                    uncontrolled={true}
-                  />
+                      <InputField
+                        name="lastName"
+                        label="Last Name"
+                        register={registerProfile}
+                        error={profileErrors.lastName}
+                        defaultValue={initialUser.lastName}
+                        placeholder="Enter your last name"
+                        uncontrolled={true}
+                      />
 
-                  <InputField
-                    name="email"
-                    label="Email Address"
-                    type="email"
-                    register={registerProfile}
-                     defaultValue={initialUser.email}
-                    validation={{
-                      required: 'Email is required',
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: 'Invalid email address'
-                      }
-                    }}
-                    error={profileErrors.email}
-                    placeholder="Enter your email"
-                    icon={<FiMail />}
-                    uncontrolled={true}
-                  />
+                      <InputField
+                        name="email"
+                        label="Email Address"
+                        type="email"
+                        register={registerProfile}
+                        defaultValue={initialUser.email}
+                        validation={{
+                          required: 'Email is required',
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: 'Invalid email address'
+                          }
+                        }}
+                        error={profileErrors.email}
+                        placeholder="Enter your email"
+                        // icon={<FiMail />}
+                        uncontrolled={true}
+                      />
 
-                  <InputField
-                    name="phone"
-                    label="Phone Number"
-                    type="tel"
-                    register={registerProfile}
-                    defaultValue={initialUser.phone}
-                    error={profileErrors.phone}
-                    placeholder="Enter your phone number"
-                    uncontrolled={true}
-                  />
+                      <InputField
+                        name="phone"
+                        label="Phone Number"
+                        type="tel"
+                        register={registerProfile}
+                        defaultValue={initialUser.phone}
+                        error={profileErrors.phone}
+                        placeholder="Enter your phone number"
+                        uncontrolled={true}
+                      />
+                    </div>
+                    <div className="flex justify-end">
+                        <Button
+                            //   onClick={handleProfileSubmit(onSubmitProfile)}
+                            disabled={loading}
+                            isLoading={loading}
+                            
+                            size="sm"
+                            type='submit'
+                        >
+                        Save Changes
+                        </Button>
+                    </div>
+                  </form>
                 </div>
-                <div className="flex justify-end">
-                    <Button
-                        //   onClick={handleProfileSubmit(onSubmitProfile)}
-                        disabled={loading}
-                        isLoading={loading}
-                        
-                        size="sm"
-                        type='submit'
-                    >
-                    Save Changes
-                    </Button>
-                </div>
-              </form>
+              </div>
             </div>
           )}
 
           {/* Security Tab */}
           {activeTab === 'security' && (
             <div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6">Security Settings</h2>
+              <h2 className="text-xl font-bold text-gray-400 mb-6">Security Settings</h2>
               
               <div className="space-y-6">
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Change Password</h3>
+                <div className="bg-bg-dark p-6 rounded-xl border border-gray-500">
+                  <h3 className="text-lg font-semibold text-text-light mb-4">Change Password</h3>
                   <form onSubmit={onChangePassword}>
                     <div className="space-y-4">
                       <InputField
@@ -332,17 +358,17 @@ export default function Settings() {
           {/* Notifications Tab */}
           {activeTab === 'notifications' && (
             <div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6">Notification Preferences</h2>
+              <h2 className="text-xl font-bold text-gray-400 mb-6">Notification Preferences</h2>
               
               <div className="space-y-6">
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Email Notifications</h3>
+                <div className="bg-bg-dark p-6 rounded-xl border border-gray-500">
+                  <h3 className="text-lg font-semibold text-text-light mb-4">Email Notifications</h3>
                   
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                    <div className="flex justify-between items-center p-3 hover:bg-gray-700 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-gray-800 dark:text-white">Account Activity</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Important notifications about your account</p>
+                        <h4 className="font-medium text-gray-400">Account Activity</h4>
+                        <p className="text-sm text-gray-400">Important notifications about your account</p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" defaultChecked />
@@ -350,10 +376,10 @@ export default function Settings() {
                       </label>
                     </div>
 
-                    <div className="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                    <div className="flex justify-between items-center p-3 hover:bg-gray-700 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-gray-800 dark:text-white">Investment Updates</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Notifications about your investments</p>
+                        <h4 className="font-medium text-gray-400">Investment Updates</h4>
+                        <p className="text-sm text-gray-400">Notifications about your investments</p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" defaultChecked />
@@ -361,10 +387,10 @@ export default function Settings() {
                       </label>
                     </div>
 
-                    <div className="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                    <div className="flex justify-between items-center p-3 hover:bg-gray-700 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-gray-800 dark:text-white">Promotional Offers</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Special offers and news</p>
+                        <h4 className="font-medium text-gray-400">Promotional Offers</h4>
+                        <p className="text-sm text-gray-400">Special offers and news</p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" />
@@ -374,14 +400,14 @@ export default function Settings() {
                   </div>
                 </div>
 
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Push Notifications</h3>
+                <div className="bg-bg-dark p-6 rounded-xl border border-gray-500">
+                  <h3 className="text-lg font-semibold text-text-light mb-4">Push Notifications</h3>
                   
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                    <div className="flex justify-between items-center p-3 hover:bg-gray-700 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-gray-800 dark:text-white">Transaction Alerts</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Get notified for all transactions</p>
+                        <h4 className="font-medium text-gray-400">Transaction Alerts</h4>
+                        <p className="text-sm text-gray-400">Get notified for all transactions</p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" defaultChecked />
@@ -389,10 +415,10 @@ export default function Settings() {
                       </label>
                     </div>
 
-                    <div className="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                    <div className="flex justify-between items-center p-3 hover:bg-gray-700 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-gray-800 dark:text-white">Market Updates</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Important market changes</p>
+                        <h4 className="font-medium text-gray-400">Market Updates</h4>
+                        <p className="text-sm text-gray-400">Important market changes</p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" />

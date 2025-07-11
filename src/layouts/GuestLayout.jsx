@@ -4,7 +4,7 @@ const GuestLayout = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-bg-darker to-bg-dark flex flex-col">
       {/* Header */}
-      <header className="py-6 px-6 flex justify-between items-center">
+      <header className="container mx-auto py-6 px-6 flex justify-between items-center">
         <Link to='/' className="text-2xl font-bold text-primary hover:text-primary-light transition-colors cursor-pointer">
           The Real World
         </Link>
