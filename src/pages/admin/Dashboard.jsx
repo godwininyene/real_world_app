@@ -119,22 +119,22 @@ export default function Dashboard() {
             <QuickActionCard
               icon={<FiPieChart size={20} />}
               title="Manage Plans"
-              linkTo="/manage/admin/plans"
+              linkTo="/admin/plans"
             />
             <QuickActionCard
               icon={<FiCreditCard size={20} />}
               title="Payment Options"
-              linkTo="/manage/admin/payment_options"
+              linkTo="/admin/payment_options"
             />
             <QuickActionCard
               icon={<FiBarChart2 size={20} />}
               title="Investments"
-              linkTo="/manage/admin/investments"
+              linkTo="/admin/investments"
             />
             <QuickActionCard
               icon={<FiHelpCircle size={20} />}
               title="Manage FAQ"
-              linkTo="/manage/admin/manage_faq"
+              linkTo="/admin/manage_faq"
             />
           </div>
         </div>

@@ -16,6 +16,9 @@ const InputField = ({
   as = "input",
   multiple = false,
   accept,
+  uncontrolled = false,
+  ...rest
+ 
 }) => {
  const baseStyles = "w-full py-2 px-4 transition-all duration-200 focus:outline-none";
   
@@ -44,7 +47,10 @@ const InputField = ({
     rows: as === "textarea" ? 3 : undefined,
     ...(type === "file"
       ? { multiple, accept } // file-specific props
-      : { defaultValue: value }),
+      : uncontrolled 
+        ? { defaultValue: value || defaultValue } // uncontrolled
+        : { value: value || defaultValue }), // controlled
+    ...rest
   };
 
   return (

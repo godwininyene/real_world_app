@@ -4,7 +4,7 @@ export const logout = async (navigate) => {
         const res = await axios.get('/api/v1/users/logout');
         if (res.data.status === 'success') {
             localStorage.removeItem("user");
-            navigate('/users/login');
+            navigate('/login');
         }
     } catch (err) {
         console.log(err);

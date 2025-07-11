@@ -34,7 +34,7 @@ const Login = () => {
             if(response.data.status=='success'){
                 localStorage.setItem("user", JSON.stringify(response.data.data.user));
                 if(response.data.data.user.role === 'user'){
-                    goTo = pathname || '/manage/investor/dashboard' 
+                    goTo = pathname || '/investor/dashboard' 
                 }
                 if(response.data.data.user.role === 'admin'){
                     goTo = pathname || '/admin/dashboard'

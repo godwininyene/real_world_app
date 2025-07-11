@@ -205,6 +205,7 @@ const FundAccount = ({user, onBack, onFunded = () => Object}) => {
                                     />
 
                                     <InputField 
+                                         uncontrolled={true}
                                         name={'amount'}
                                         type='number'
                                         placeholder={'0.00'}

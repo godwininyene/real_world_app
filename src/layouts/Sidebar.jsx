@@ -5,13 +5,13 @@ import {
   FaExchangeAlt, 
   FaCog,  
   FaTimes,  
-  FaUserCircle 
 } from "react-icons/fa";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import logo from './../assets/images/logo.png';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { logout } from '../utils/logout';
 import { useState, useEffect } from "react";
+import defaultAvatar from './../assets/images/default.jpg';
 
 const Sidebar = ({ isOpen, onClose, user }) => {
   const location = useLocation();
@@ -35,7 +35,6 @@ const Sidebar = ({ isOpen, onClose, user }) => {
       setProcessing(false);
     }
   };
-
 
   const user_links = [
     { name: "Dashboard", path: "/investor/dashboard", icon: <FaTachometerAlt /> },
@@ -113,9 +112,21 @@ const Sidebar = ({ isOpen, onClose, user }) => {
         {/* User Profile Section with Logout */}
         <div className="p-4 border-t border-card-border">
           <div className="flex items-center space-x-3 mb-4">
-            <FaUserCircle className="text-2xl text-text-light" />
+            {user?.photo ? (
+              <img 
+                src={user.photo} 
+                alt="User Profile" 
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            ) : (
+              <img 
+                src={defaultAvatar} 
+                alt="Default Avatar" 
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            )}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{user.firstName +' ' + user.lastName }</p>
+              <p className="text-sm font-medium truncate">{user.firstName + ' ' + user.lastName}</p>
               <p className="text-xs text-text-light truncate">{user.email}</p>
             </div>
           </div>
@@ -123,7 +134,7 @@ const Sidebar = ({ isOpen, onClose, user }) => {
           <button
             onClick={handleLogout}
             disabled={processing}
-            className={`w-full flex items-center justify-center px-4 py-2 rounded-lg text-sm ${
+            className={`w-full cursor-pointer flex items-center justify-center px-4 py-2 rounded-lg text-sm ${
               processing 
                 ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
                 : 'bg-red-500/10 text-red-500 hover:bg-red-500/20'

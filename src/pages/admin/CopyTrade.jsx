@@ -131,6 +131,7 @@ const CopyTrade = () => {
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <InputField
+              uncontrolled={true}
               name="tradeName"
               label="Trade Name"
               placeholder="e.g. Market Masters"
@@ -138,6 +139,7 @@ const CopyTrade = () => {
             />
             
             <InputField
+              uncontrolled={true}
               name="tradeUsername"
               label="Trade Username"
               placeholder="e.g. @Mini_Tradez"
@@ -146,6 +148,7 @@ const CopyTrade = () => {
             
             <div className="grid grid-cols-2 gap-4">
               <InputField
+                uncontrolled={true}
                 name="minDeposit"
                 label="Min Deposit ($)"
                 type="number"
@@ -154,6 +157,7 @@ const CopyTrade = () => {
               />
               
               <InputField
+                uncontrolled={true}
                 name="fees"
                 label="Fees (%)"
                 type="number"
@@ -164,6 +168,7 @@ const CopyTrade = () => {
             
             <div className="grid grid-cols-2 gap-4">
               <InputField
+                uncontrolled={true}
                 name="investors"
                 label="Investors"
                 type="number"
@@ -172,6 +177,7 @@ const CopyTrade = () => {
               />
               
               <InputField
+                uncontrolled={true}
                 name="monthlyReturn"
                 label="1M Return (%)"
                 type="number"
@@ -295,13 +301,14 @@ const CopyTrade = () => {
 
       {/* Edit Trade Modal */}
       <Modal show={editModal} maxWidth="sm" onClose={() => setEditModal(false)}>
-        <div className="bg-slate-800 rounded-lg shadow p-6">
+        <div className="bg-slate-800 rounded-lg shadow p-6 relative z-50">
           <h2 className="text-lg font-semibold mb-4 text-slate-300  pb-2 border-b border-gray-200 dark:border-slate-700">
             Edit Trade
           </h2>
           {selectedTrade && (
             <form onSubmit={handleUpdate} className="space-y-4">
               <InputField
+                uncontrolled={true}
                 name="tradeName"
                 label="Trade Name"
                 value={selectedTrade.tradeName}
@@ -310,6 +317,7 @@ const CopyTrade = () => {
               />
               
               <InputField
+                uncontrolled={true}
                 name="tradeUsername"
                 label="Trade Username"
                 value={selectedTrade.tradeUsername}
@@ -319,6 +327,7 @@ const CopyTrade = () => {
               
               <div className="grid grid-cols-2 gap-4">
                 <InputField
+                   uncontrolled={true}
                   name="minDeposit"
                   label="Min Deposit ($)"
                   type="number"
@@ -327,6 +336,7 @@ const CopyTrade = () => {
                 />
                 
                 <InputField
+                   uncontrolled={true}
                   name="fees"
                   label="Fees (%)"
                   type="number"
@@ -337,6 +347,7 @@ const CopyTrade = () => {
               
               <div className="grid grid-cols-2 gap-4">
                 <InputField
+                  uncontrolled={true}
                   name="investors"
                   label="Investors"
                   type="number"
@@ -345,6 +356,7 @@ const CopyTrade = () => {
                 />
                 
                 <InputField
+                 uncontrolled={true}
                   name="monthlyReturn"
                   label="1M Return (%)"
                   type="number"
