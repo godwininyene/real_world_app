@@ -1,9 +1,64 @@
 import InputField from "../../components/common/InputField";
 import Button from "../../components/common/Button";
-import { FaUser, FaLock, FaEnvelope, FaCheck } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaUser, FaLock, FaEnvelope, FaCheck, FaPhone } from "react-icons/fa";
+import { Link, useNavigate,useSearchParams  } from "react-router-dom";
+import { useState } from "react";
+import axios from "../../lib/axios";
+import { toast } from 'react-toastify';
 
 const Register = () => {
+  const[processing, setProcessing] = useState(false);
+  const[errors, setErrors] = useState({})
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams();
+  const refId = searchParams.get('refid'); // This will be null if refid doesn't exist
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setProcessing(true);
+    setErrors({});
+    let goTo;
+    
+    const formData = new FormData(e.target);
+    const dataToSend = Object.fromEntries(formData)
+    // Add referral Id to the data if it exists
+    if (refId) {
+      dataToSend.referralId = refId;
+    }
+    try {
+      const res = await axios.post('api/v1/users/signup', dataToSend);
+     
+      if (res.data.status === 'success') {
+        toast.success('Account created successfully! You will be redirected shortly');
+        e.target.reset();
+        localStorage.setItem("user", JSON.stringify(res.data.data.user));
+        if(res.data.data.user.role === 'user'){
+          goTo = '/investor/dashboard' 
+        }
+        if(res.data.data.user.role === 'admin'){
+          goTo = '/admin/dashboard'
+        }
+        setTimeout(()=>{
+          navigate(goTo)
+        }, 3000)
+      }
+    } catch (err) {
+      // Extract errors from the backend response
+      if (err.response?.data?.errors) {
+        setErrors(err.response.data.errors);
+      } else {
+        // For unexpected errors, set a generic error
+        setErrors({ general: 'An unexpected error occurred' });
+        console.log('Unexpected Error:', err);
+      }
+      toast.error(err.response?.data?.message || 'Error creating account');
+      console.log(err);
+      
+    } finally {
+      setProcessing(false);
+    }
+  };
   return (
     <>
       {/* This will appear in the decorative header */}
@@ -13,13 +68,28 @@ const Register = () => {
       </h1>
 
       {/* This will appear in the form container */}
-      <div className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        {errors.general && (
+          <div className="text-red-500 text-sm mb-4">
+            {errors.general}
+          </div>
+        )}
         <InputField
-          name="fullname"
-          type="text"
-          placeholder="John Doe"
-          label="Full Name"
+          name="firstName"
+          placeholder="John"
+          label="Firstname"
           icon={<FaUser className="text-text-light" />}
+          uncontrolled={true}
+          error={errors.firstName}
+        />
+
+        <InputField
+          name="lastName"
+          placeholder="Doe"
+          label="Lastname"
+          icon={<FaUser className="text-text-light" />}
+          uncontrolled={true}
+          error={errors.lastName}
         />
 
         <InputField
@@ -28,6 +98,8 @@ const Register = () => {
           placeholder="johndoe123"
           label="Username"
           icon={<FaUser className="text-text-light" />}
+          uncontrolled={true}
+          error={errors.username}
         />
 
         <InputField
@@ -36,7 +108,18 @@ const Register = () => {
           placeholder="john@example.com"
           label="Email Address"
           icon={<FaEnvelope className="text-text-light" />}
+          uncontrolled={true}
+          error={errors.email}
         />
+        <InputField
+          name="phone"
+          placeholder="+1290090888"
+          label="Phone number"
+          icon={<FaPhone className="text-text-light" />}
+          uncontrolled={true}
+          error={errors.phone}
+        />
+      
 
         <InputField
           name="password"
@@ -44,6 +127,8 @@ const Register = () => {
           placeholder="••••••••"
           label="Password"
           icon={<FaLock className="text-text-light" />}
+          uncontrolled={true}
+          error={errors.password}
         />
 
         <InputField
@@ -52,6 +137,8 @@ const Register = () => {
           placeholder="••••••••"
           label="Confirm Password"
           icon={<FaLock className="text-text-light" />}
+          uncontrolled={true}
+          error={errors.passwordConfirm}
         />
 
         <div className="flex items-start mt-4">
@@ -83,6 +170,8 @@ const Register = () => {
             type="submit"
             className="w-full"
             icon={<FaCheck />}
+            isLoading={processing}
+            disabled={processing}
           >
             Create Account
           </Button>
@@ -97,7 +186,7 @@ const Register = () => {
             Login
           </Link>
         </div>
-      </div>
+      </form>
     </>
   );
 };

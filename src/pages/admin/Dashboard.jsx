@@ -131,11 +131,11 @@ export default function Dashboard() {
               title="Investments"
               linkTo="/admin/investments"
             />
-            <QuickActionCard
+            {/* <QuickActionCard
               icon={<FiHelpCircle size={20} />}
               title="Manage FAQ"
               linkTo="/admin/manage_faq"
-            />
+            /> */}
           </div>
         </div>
       </div>

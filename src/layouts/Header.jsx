@@ -59,7 +59,7 @@ const Header = ({ onMenuToggle, user }) => {
       </div>
 
       {/* Right Section - User Profile */}
-      <div className="relative" ref={dropdownRef}>
+      <div className="cursor-pointer relative" ref={dropdownRef}>
         <button 
           className="flex items-center space-x-2 focus:outline-none"
           onClick={() => setProfileOpen(!profileOpen)}

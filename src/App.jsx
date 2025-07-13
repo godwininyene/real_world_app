@@ -16,6 +16,8 @@ import Investments from './pages/admin/Investments';
 import CopyTrade from './pages/admin/CopyTrade';
 import AdminCopytradeInvestments from './pages/admin/CopytradeInvestments';
 import Plans from './pages/admin/Plans';
+import PaymentOptions from './pages/admin/PaymentOptions';
+
 
 // Investor Pages
 import InvestorDashboard from './pages/investors/Dashboard';
@@ -28,7 +30,7 @@ import InvestorSettings from './pages/investors/Settings'
 
 // Others
 import NotFound from './pages/NotFound';
-// import Error from './components/Error';
+import Error from './components/Error';
 import { requireAuth } from './utils/protect';
 
 function App() {
@@ -39,7 +41,7 @@ function App() {
         <Route path="/" element={<Home />} />
         
         {/* Auth Routes - Wrapped in GuestLayout */}
-        <Route path="/" element={<GuestLayout />}>
+        <Route path="/" element={<GuestLayout />} errorElement={<Error />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
@@ -48,7 +50,7 @@ function App() {
         </Route>
 
         {/* Authenticated Routes */}
-        <Route path="/" element={<AuthenticatedLayout />}>
+        <Route path="/" element={<AuthenticatedLayout />} errorElement={<Error />}>
           {/* Admin Related Routes */}
           <Route path="admin" loader={async({ request }) => await requireAuth(request, 'admin')}>
             <Route path="dashboard" element={<AdminDashboard />} />
@@ -58,6 +60,7 @@ function App() {
             <Route path="investments" element={<Investments />} />
             <Route path="copy_trade" element={<CopyTrade />} />
             <Route path="copy_trade_investments" element={<AdminCopytradeInvestments />} />
+            <Route path='payment_options' element={<PaymentOptions />}></Route>
            
           </Route>
 

@@ -2,6 +2,7 @@ import Sidebar from "./Sidebar"
 import Header from "./Header"
 import { useState} from "react";
 import { Outlet } from "react-router-dom";
+import ScrollTop from './../components/ScrollTop'
 
 const AuthenticatedLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -9,6 +10,7 @@ const AuthenticatedLayout = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-bg-darker text-white overflow-hidden">
+      <ScrollTop />
       {/* Sidebar - Hidden on mobile by default */}
       <Sidebar user={user} isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       
