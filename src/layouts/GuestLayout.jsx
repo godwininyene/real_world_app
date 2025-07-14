@@ -30,7 +30,7 @@ const GuestLayout = () => {
             </div>
 
             {/* Form Container */}
-            <div className="p-8">
+            <div className="p-4 md:p-8">
               <Outlet />
             </div>
           </div>

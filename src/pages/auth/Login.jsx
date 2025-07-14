@@ -72,8 +72,8 @@ const Login = () => {
           {message}
         </h2>
       )}
-      <div className="space-y-6">
-        <form onSubmit={submit}>
+      <div >
+        <form onSubmit={submit} className="space-y-4">
           <InputField
             name="email"
             type="email"
